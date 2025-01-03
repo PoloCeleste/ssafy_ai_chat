@@ -12,6 +12,10 @@ function createMessageBubble(content, sender = "user") {
   const wrapper = document.createElement("div");
   wrapper.classList.add("mb-6", "flex", "items-start", "space-x-3");
 
+  if (sender === "user") {
+    wrapper.classList.add("justify-end"); // 사용자 메시지를 오른쪽 정렬
+  }
+
   const avatar = document.createElement("div");
   avatar.classList.add(
     "w-10",
@@ -29,8 +33,8 @@ function createMessageBubble(content, sender = "user") {
     avatar.classList.add("bg-gradient-to-br", "from-green-400", "to-green-600");
     avatar.textContent = "A";
   } else {
-    avatar.classList.add("bg-gradient-to-br", "from-blue-500", "to-blue-700");
-    avatar.textContent = "U";
+    // avatar.classList.add("bg-gradient-to-br", "from-blue-500", "to-blue-700");
+    // avatar.textContent = "U";
   }
 
   const bubble = document.createElement("div");
@@ -62,9 +66,7 @@ function scrollToBottom() {
 }
 
 async function getAssistantResponse(userMessage) {
-  const mode = apiSelector.value;
-  const url =
-    mode === "assistant" ? `${BASE_URL}/assistant` : `${BASE_URL}/chat`;
+  const url = `${BASE_URL}/chat`;
 
   const response = await fetch(url, {
     method: "POST",
